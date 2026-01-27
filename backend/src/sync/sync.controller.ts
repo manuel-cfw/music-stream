@@ -11,7 +11,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery } from '@ne
 import { SyncService } from './sync.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { User, ConflictResolution } from '../database/entities';
+import { User } from '../database/entities';
 import { ResolveConflictDto } from './dto';
 
 @ApiTags('sync')

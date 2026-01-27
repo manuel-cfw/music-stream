@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Playlist, PlaylistItem, Track, Provider, ProviderAccount } from '../database/entities';
+import { Playlist, PlaylistItem, Track, Provider } from '../database/entities';
 import { ProvidersService } from '../providers/providers.service';
 import { MusicProviderTrack } from '../common/interfaces';
 

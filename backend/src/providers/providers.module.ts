@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HttpModule } from '@nestjs/axios';
-import { ConfigModule } from '@nestjs/config';
 import { ProvidersService } from './providers.service';
 import { ProvidersController } from './providers.controller';
 import { TokenService } from './token.service';
