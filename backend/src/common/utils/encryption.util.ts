@@ -11,7 +11,7 @@ const AUTH_TAG_LENGTH = 16;
 export function encrypt(plaintext: string, key: string): string {
   const keyBuffer = Buffer.from(key, 'hex');
   if (keyBuffer.length !== 32) {
-    throw new Error('Encryption key must be 32 bytes (64 hex characters)');
+    throw new Error('Encryption key must be 64 hex characters (32 bytes)');
   }
 
   const iv = crypto.randomBytes(IV_LENGTH);
@@ -36,7 +36,7 @@ export function encrypt(plaintext: string, key: string): string {
 export function decrypt(encryptedData: string, key: string): string {
   const keyBuffer = Buffer.from(key, 'hex');
   if (keyBuffer.length !== 32) {
-    throw new Error('Encryption key must be 32 bytes (64 hex characters)');
+    throw new Error('Encryption key must be 64 hex characters (32 bytes)');
   }
 
   const combined = Buffer.from(encryptedData, 'base64');

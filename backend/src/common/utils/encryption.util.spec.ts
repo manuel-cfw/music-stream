@@ -56,7 +56,7 @@ describe('Encryption Utility', () => {
       const plaintext = 'Hello, World!';
       const shortKey = '0123456789abcdef';
 
-      expect(() => encrypt(plaintext, shortKey)).toThrow('Encryption key must be 32 bytes');
+      expect(() => encrypt(plaintext, shortKey)).toThrow('Encryption key must be 64 hex characters (32 bytes)');
     });
   });
 

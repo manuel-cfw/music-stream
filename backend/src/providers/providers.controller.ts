@@ -11,20 +11,18 @@ import {
 import { Response } from 'express';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { ProvidersService } from './providers.service';
+import { OAuthStateService } from './oauth-state.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { User, Provider } from '../database/entities';
 import { ConfigService } from '@nestjs/config';
-import * as crypto from 'crypto';
-
-// Store OAuth states temporarily (in production, use Redis)
-const oauthStates = new Map<string, { userId: string; timestamp: number }>();
 
 @ApiTags('providers')
 @Controller('providers')
 export class ProvidersController {
   constructor(
     private readonly providersService: ProvidersService,
+    private readonly oauthStateService: OAuthStateService,
     private readonly configService: ConfigService,
   ) {}
 
@@ -53,16 +51,7 @@ export class ProvidersController {
     }
 
     // Generate state for CSRF protection
-    const state = crypto.randomBytes(32).toString('hex');
-    oauthStates.set(state, { userId: user.id, timestamp: Date.now() });
-
-    // Clean up old states (older than 10 minutes)
-    const tenMinutesAgo = Date.now() - 10 * 60 * 1000;
-    for (const [key, value] of oauthStates.entries()) {
-      if (value.timestamp < tenMinutesAgo) {
-        oauthStates.delete(key);
-      }
-    }
+    const state = this.oauthStateService.generateState(user.id);
 
     const authUrl = this.providersService.getOAuthUrl(provider, state);
     res.redirect(authUrl);
@@ -86,15 +75,13 @@ export class ProvidersController {
     }
 
     // Verify state
-    const storedState = oauthStates.get(state);
-    if (!storedState) {
+    const userId = this.oauthStateService.validateAndConsume(state);
+    if (!userId) {
       return res.redirect(`${appUrl}/providers?error=invalid_state`);
     }
 
-    oauthStates.delete(state);
-
     try {
-      await this.providersService.handleOAuthCallback(provider, code, storedState.userId);
+      await this.providersService.handleOAuthCallback(provider, code, userId);
       return res.redirect(`${appUrl}/providers?success=${provider}`);
     } catch (err) {
       console.error('OAuth callback error:', err);

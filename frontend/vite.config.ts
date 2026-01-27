@@ -41,7 +41,11 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         runtimeCaching: [
           {
-            urlPattern: /^https:\/\/api\./i,
+            // Only cache API calls to our own backend
+            urlPattern: ({ url }: { url: URL }) => {
+              const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
+              return url.href.startsWith(apiUrl.replace('/api/v1', ''));
+            },
             handler: 'NetworkFirst',
             options: {
               cacheName: 'api-cache',

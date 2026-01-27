@@ -10,6 +10,17 @@ const api = axios.create({
   },
 });
 
+// Custom event for navigation that can be listened to by React Router
+const LOGOUT_EVENT = 'auth:logout';
+
+/**
+ * Dispatch a logout event that can be caught by a React component
+ * to trigger navigation via React Router
+ */
+function dispatchLogoutEvent(): void {
+  window.dispatchEvent(new CustomEvent(LOGOUT_EVENT));
+}
+
 // Request interceptor to add auth token
 api.interceptors.request.use((config) => {
   const token = useAuthStore.getState().accessToken;
@@ -40,13 +51,13 @@ api.interceptors.response.use(
 
           originalRequest.headers.Authorization = `Bearer ${accessToken}`;
           return api(originalRequest);
-        } catch (refreshError) {
+        } catch {
           useAuthStore.getState().logout();
-          window.location.href = '/login';
+          dispatchLogoutEvent();
         }
       } else {
         useAuthStore.getState().logout();
-        window.location.href = '/login';
+        dispatchLogoutEvent();
       }
     }
 
@@ -54,4 +65,5 @@ api.interceptors.response.use(
   }
 );
 
+export { LOGOUT_EVENT };
 export default api;

@@ -1,5 +1,7 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { useAuthStore } from './store/auth.store';
+import { LOGOUT_EVENT } from './services/api';
 import Layout from './components/common/Layout';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -32,6 +34,20 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
 }
 
 function App() {
+  const navigate = useNavigate();
+
+  // Listen for logout events from the API interceptor
+  useEffect(() => {
+    const handleLogout = () => {
+      navigate('/login', { replace: true });
+    };
+
+    window.addEventListener(LOGOUT_EVENT, handleLogout);
+    return () => {
+      window.removeEventListener(LOGOUT_EVENT, handleLogout);
+    };
+  }, [navigate]);
+
   return (
     <Routes>
       {/* Public routes */}
