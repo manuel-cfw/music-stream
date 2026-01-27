@@ -16,7 +16,7 @@ import type { SyncRun, Conflict } from '../types';
 export default function SyncCenterPage() {
   const queryClient = useQueryClient();
 
-  const { data: statusData, isLoading: statusLoading } = useQuery({
+  const { data: statusData } = useQuery({
     queryKey: ['sync-status'],
     queryFn: syncService.getStatus,
     refetchInterval: 5000, // Poll every 5 seconds

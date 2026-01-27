@@ -50,7 +50,7 @@ export class AuthService {
     const user = await this.usersService.create({
       email: dto.email,
       passwordHash,
-      displayName: dto.displayName,
+      displayName: dto.displayName || null,
     });
 
     // Generate tokens

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { playlistsService, providersService } from '../services/playlist.service';
 import { Loader2, RefreshCw, ListMusic, ChevronRight } from 'lucide-react';
-import type { Playlist, Provider } from '../types';
+import type { Playlist } from '../types';
 
 export default function PlaylistsPage() {
   const queryClient = useQueryClient();
@@ -30,11 +30,6 @@ export default function PlaylistsPage() {
 
   const handleSync = (provider: 'spotify' | 'soundcloud') => {
     syncMutation.mutate(provider);
-  };
-
-  const formatDate = (dateStr: string | null) => {
-    if (!dateStr) return 'Never';
-    return new Date(dateStr).toLocaleDateString();
   };
 
   return (

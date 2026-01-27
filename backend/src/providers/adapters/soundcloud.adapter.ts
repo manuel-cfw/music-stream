@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
+import { AxiosResponse } from 'axios';
 import {
   MusicProvider,
   MusicProviderPlaylist,
@@ -62,7 +63,7 @@ export class SoundCloudAdapter {
       redirect_uri: redirectUri || '',
     });
 
-    const response = await firstValueFrom(
+    const response: AxiosResponse<SoundCloudTokenResponse> = await firstValueFrom(
       this.httpService.post<SoundCloudTokenResponse>(
         'https://api.soundcloud.com/oauth2/token',
         params.toString(),
@@ -101,7 +102,7 @@ export class SoundCloudAdapter {
       client_secret: clientSecret || '',
     });
 
-    const response = await firstValueFrom(
+    const response: AxiosResponse<SoundCloudTokenResponse> = await firstValueFrom(
       this.httpService.post<SoundCloudTokenResponse>(
         'https://api.soundcloud.com/oauth2/token',
         params.toString(),
@@ -150,7 +151,7 @@ class SoundCloudAdapterWithToken implements MusicProvider {
     const separator = endpoint.includes('?') ? '&' : '?';
     const fullUrl = `${url}${separator}oauth_token=${this.accessToken}`;
 
-    const response = await firstValueFrom(
+    const response: AxiosResponse<T> = await firstValueFrom(
       this.httpService.request<T>({
         url: fullUrl,
         method,

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
+import { AxiosResponse } from 'axios';
 import {
   MusicProvider,
   MusicProviderPlaylist,
@@ -62,7 +63,7 @@ export class SpotifyAdapter {
       redirect_uri: redirectUri || '',
     });
 
-    const response = await firstValueFrom(
+    const response: AxiosResponse<SpotifyTokenResponse> = await firstValueFrom(
       this.httpService.post<SpotifyTokenResponse>(
         'https://accounts.spotify.com/api/token',
         params.toString(),
@@ -98,7 +99,7 @@ export class SpotifyAdapter {
       refresh_token: refreshToken,
     });
 
-    const response = await firstValueFrom(
+    const response: AxiosResponse<SpotifyTokenResponse> = await firstValueFrom(
       this.httpService.post<SpotifyTokenResponse>(
         'https://accounts.spotify.com/api/token',
         params.toString(),
@@ -143,7 +144,7 @@ class SpotifyAdapterWithToken implements MusicProvider {
     const url = `${this.baseUrl}${endpoint}`;
     const method = options.method || 'GET';
 
-    const response = await firstValueFrom(
+    const response: AxiosResponse<T> = await firstValueFrom(
       this.httpService.request<T>({
         url,
         method,
