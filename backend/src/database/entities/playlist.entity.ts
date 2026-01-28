@@ -29,7 +29,7 @@ export class Playlist {
   @Column({ type: 'text', nullable: true })
   description: string | null;
 
-  @Column({ name: 'image_url', nullable: true, length: 500 })
+  @Column({ name: 'image_url', type: 'varchar', nullable: true, length: 500 })
   imageUrl: string | null;
 
   @Column({ name: 'track_count', default: 0 })
@@ -41,7 +41,7 @@ export class Playlist {
   @Column({ name: 'is_owner', default: true })
   isOwner: boolean;
 
-  @Column({ name: 'snapshot_id', nullable: true, length: 255 })
+  @Column({ name: 'snapshot_id', type: 'varchar', nullable: true, length: 255 })
   snapshotId: string | null;
 
   @Column({ name: 'last_synced_at', type: 'datetime', nullable: true })

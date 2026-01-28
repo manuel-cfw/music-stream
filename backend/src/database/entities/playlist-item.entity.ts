@@ -24,7 +24,7 @@ export class PlaylistItem {
   @Column({ name: 'added_at', type: 'datetime', nullable: true })
   addedAt: Date | null;
 
-  @Column({ name: 'added_by', nullable: true, length: 255 })
+  @Column({ name: 'added_by', type: 'varchar', nullable: true, length: 255 })
   addedBy: string | null;
 
   @CreateDateColumn({ name: 'created_at' })

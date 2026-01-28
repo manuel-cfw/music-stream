@@ -21,16 +21,16 @@ export class User {
   @Column({ unique: true, length: 255 })
   email: string;
 
-  @Column({ name: 'password_hash', nullable: true, length: 255 })
+  @Column({ name: 'password_hash', type: 'varchar', nullable: true, length: 255 })
   passwordHash: string | null;
 
-  @Column({ name: 'display_name', nullable: true, length: 100 })
+  @Column({ name: 'display_name', type: 'varchar', nullable: true, length: 100 })
   displayName: string | null;
 
   @Column({ name: 'email_verified', default: false })
   emailVerified: boolean;
 
-  @Column({ name: 'magic_link_token', nullable: true, length: 255 })
+  @Column({ name: 'magic_link_token', type: 'varchar', nullable: true, length: 255 })
   magicLinkToken: string | null;
 
   @Column({ name: 'magic_link_expires_at', nullable: true, type: 'datetime' })

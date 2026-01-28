@@ -29,16 +29,16 @@ export class ProviderAccount {
   @Column({ name: 'provider_user_id', length: 255 })
   providerUserId: string;
 
-  @Column({ name: 'display_name', nullable: true, length: 255 })
+  @Column({ name: 'display_name', type: 'varchar', nullable: true, length: 255 })
   displayName: string | null;
 
-  @Column({ nullable: true, length: 255 })
+  @Column({ type: 'varchar', nullable: true, length: 255 })
   email: string | null;
 
-  @Column({ name: 'profile_url', nullable: true, length: 500 })
+  @Column({ name: 'profile_url', type: 'varchar', nullable: true, length: 500 })
   profileUrl: string | null;
 
-  @Column({ name: 'image_url', nullable: true, length: 500 })
+  @Column({ name: 'image_url', type: 'varchar', nullable: true, length: 500 })
   imageUrl: string | null;
 
   @CreateDateColumn({ name: 'created_at' })
