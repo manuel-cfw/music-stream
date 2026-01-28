@@ -9,8 +9,36 @@ async function bootstrap() {
 
   // Security
   app.use(helmet());
+
+  // CORS configuration - support multiple origins
+  const isDevelopment = process.env.NODE_ENV !== 'production';
+  const allowedOrigins: string[] = [];
+
+  // Add localhost origins only in development mode
+  if (isDevelopment) {
+    allowedOrigins.push('http://localhost:5173'); // Vite default dev server
+    allowedOrigins.push('http://localhost'); // Common development URL
+  }
+
+  // Add APP_URL if specified and not already in the list
+  const appUrl = process.env.APP_URL;
+  if (appUrl && !allowedOrigins.includes(appUrl)) {
+    allowedOrigins.push(appUrl);
+  }
+
   app.enableCors({
-    origin: process.env.APP_URL || 'http://localhost:5173',
+    origin: (origin, callback) => {
+      // In development, allow requests with no origin (like curl or Postman)
+      if (isDevelopment && !origin) {
+        callback(null, true);
+        return;
+      }
+      if (origin && allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(null, false);
+      }
+    },
     credentials: true,
   });
 
