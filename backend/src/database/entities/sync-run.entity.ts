@@ -62,7 +62,7 @@ export class SyncRun {
   @JoinColumn({ name: 'provider_account_id' })
   providerAccount: ProviderAccount | null;
 
-  @Column({ name: 'provider_account_id', nullable: true })
+  @Column({ name: 'provider_account_id', type: 'varchar', nullable: true })
   providerAccountId: string | null;
 
   @OneToMany(() => Conflict, (conflict) => conflict.syncRun)

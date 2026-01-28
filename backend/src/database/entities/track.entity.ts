@@ -29,25 +29,25 @@ export class Track {
   @Column({ length: 500 })
   name: string;
 
-  @Column({ nullable: true, length: 500 })
+  @Column({ type: 'varchar', nullable: true, length: 500 })
   artist: string | null;
 
-  @Column({ nullable: true, length: 500 })
+  @Column({ type: 'varchar', nullable: true, length: 500 })
   album: string | null;
 
-  @Column({ name: 'duration_ms', nullable: true })
+  @Column({ name: 'duration_ms', type: 'int', nullable: true })
   durationMs: number | null;
 
-  @Column({ nullable: true, length: 20 })
+  @Column({ type: 'varchar', nullable: true, length: 20 })
   isrc: string | null;
 
-  @Column({ name: 'preview_url', nullable: true, length: 500 })
+  @Column({ name: 'preview_url', type: 'varchar', nullable: true, length: 500 })
   previewUrl: string | null;
 
-  @Column({ name: 'external_url', nullable: true, length: 500 })
+  @Column({ name: 'external_url', type: 'varchar', nullable: true, length: 500 })
   externalUrl: string | null;
 
-  @Column({ name: 'image_url', nullable: true, length: 500 })
+  @Column({ name: 'image_url', type: 'varchar', nullable: true, length: 500 })
   imageUrl: string | null;
 
   @Column({ name: 'is_playable', default: true })

@@ -54,6 +54,6 @@ export class Conflict {
   @JoinColumn({ name: 'unified_item_id' })
   unifiedItem: UnifiedItem | null;
 
-  @Column({ name: 'unified_item_id', nullable: true })
+  @Column({ name: 'unified_item_id', type: 'varchar', nullable: true })
   unifiedItemId: string | null;
 }
