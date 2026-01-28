@@ -179,7 +179,7 @@ export default function ProvidersPage() {
         <ul className="text-sm text-neutral-400 space-y-1">
           <li>• Click "Login & Connect" to log in with your Spotify or SoundCloud account</li>
           <li>• You'll be redirected to the official login page (OAuth 2.0)</li>
-          <li>• Your credentials are securely encrypted and stored</li>
+          <li>• Your access tokens are securely encrypted and stored</li>
           <li>• We only request permissions necessary for playlist management</li>
           <li>• You can disconnect providers at any time</li>
           <li>• Disconnecting will remove access to that provider's playlists</li>
