@@ -7,7 +7,128 @@
 - Domain name with DNS configured
 - SSL/TLS certificate (Let's Encrypt recommended)
 
-## Production Deployment
+## Coolify Deployment (Recommended)
+
+[Coolify](https://coolify.io/) is a self-hosted platform that simplifies deploying applications. It automatically handles SSL certificates, reverse proxy configuration, and environment variables management.
+
+### 1. Prerequisites
+
+- A running Coolify instance (v4.x recommended)
+- A server connected to Coolify
+- Domain name with DNS pointing to your server
+
+### 2. Create New Application in Coolify
+
+1. Log in to your Coolify dashboard
+2. Navigate to your Project → Environment
+3. Click **"+ New"** and select **"Docker Compose"**
+4. Choose **"Public Repository"** and enter your repository URL
+5. Set the branch to deploy (e.g., `main`)
+
+### 3. Configure Environment Variables
+
+In Coolify's **Environment Variables** section, add all the following variables:
+
+```env
+# Application
+NODE_ENV=production
+APP_URL=https://yourdomain.com
+API_URL=https://yourdomain.com/api/v1
+VITE_API_URL=https://yourdomain.com/api/v1
+VITE_APP_NAME=Unified Playlist Manager
+
+# Database
+DB_DATABASE=unified_playlist
+DB_USERNAME=your_db_user
+DB_PASSWORD=your_secure_password
+DB_ROOT_PASSWORD=your_root_password
+
+# JWT Authentication
+JWT_SECRET=your-very-long-random-secret-min-32-chars
+JWT_EXPIRES_IN=15m
+JWT_REFRESH_EXPIRES_IN=7d
+
+# Encryption (generate with: openssl rand -hex 16)
+ENCRYPTION_KEY=your-32-char-hex-encryption-key
+
+# Spotify OAuth (from https://developer.spotify.com/dashboard)
+SPOTIFY_CLIENT_ID=your_spotify_client_id
+SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
+SPOTIFY_REDIRECT_URI=https://yourdomain.com/api/v1/providers/spotify/callback
+
+# SoundCloud OAuth (from https://soundcloud.com/you/apps)
+SOUNDCLOUD_CLIENT_ID=your_soundcloud_client_id
+SOUNDCLOUD_CLIENT_SECRET=your_soundcloud_client_secret
+SOUNDCLOUD_REDIRECT_URI=https://yourdomain.com/api/v1/providers/soundcloud/callback
+
+# Email (SMTP for magic links)
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=your_smtp_user
+SMTP_PASSWORD=your_smtp_password
+SMTP_FROM=noreply@yourdomain.com
+
+# Rate Limiting (optional)
+RATE_LIMIT_TTL=60
+RATE_LIMIT_MAX=100
+
+# Logging (optional)
+LOG_LEVEL=info
+```
+
+### 4. Configure Docker Compose
+
+1. In Coolify, set the **Docker Compose Location** to `docker-compose.prod.yml`
+2. Configure domain settings:
+   - For the **frontend** service, set your main domain (e.g., `yourdomain.com`)
+   - For the **backend** service, set API path (e.g., `yourdomain.com` with `/api` path prefix)
+
+### 5. Deploy
+
+1. Click **Deploy** to start the deployment
+2. Coolify will:
+   - Clone the repository
+   - Build the Docker images
+   - Start all services
+   - Configure SSL certificates automatically
+   - Set up the reverse proxy
+
+### 6. Generate Secrets
+
+Use these commands to generate secure secrets:
+
+```bash
+# Generate JWT secret (32+ characters)
+openssl rand -hex 32
+
+# Generate encryption key (16 bytes = 32 hex chars)
+openssl rand -hex 16
+
+# Generate database password
+openssl rand -base64 24
+```
+
+### 7. Post-Deployment
+
+1. **Run database migrations** (first deployment only):
+   - SSH into your server or use Coolify's terminal
+   - Run: `docker exec unified-playlist-api npm run migration:run`
+
+2. **Verify deployment**:
+   - Visit your frontend URL: `https://yourdomain.com`
+   - Check API health: `https://yourdomain.com/api/v1/health`
+
+### Coolify Tips
+
+- **Environment Variables**: All variables are managed through Coolify's UI. No need to create `.env` files on the server.
+- **Secrets**: Mark sensitive variables (passwords, secrets) as "Secret" in Coolify for security.
+- **Auto-Deploy**: Enable auto-deploy to automatically redeploy when you push to your repository.
+- **Logs**: Use Coolify's built-in log viewer to debug issues.
+- **Backups**: Configure Coolify's backup feature for automatic database backups.
+
+---
+
+## Manual Production Deployment
 
 ### 1. Server Setup
 
