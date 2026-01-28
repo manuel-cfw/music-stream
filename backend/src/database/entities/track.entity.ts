@@ -14,7 +14,8 @@ import { UnifiedItem } from './unified-item.entity';
 
 @Entity('tracks')
 @Unique(['provider', 'providerTrackId'])
-@Index(['name', 'artist'])
+@Index('idx_tracks_name', ['name'])
+@Index('idx_tracks_artist', ['artist'])
 @Index(['isrc'])
 export class Track {
   @PrimaryGeneratedColumn('uuid')
