@@ -7,8 +7,9 @@ A Progressive Web App (PWA) that connects and manages Spotify and SoundCloud pla
 - 🎵 **Unified Playlists**: Combine tracks from Spotify and SoundCloud into custom playlists
 - 🔄 **Sync**: Keep your playlists up-to-date across providers
 - 📱 **PWA**: Install on Windows, macOS, or use in any modern browser
-- 🔒 **Secure**: OAuth 2.0 authentication, encrypted token storage
+- 🔒 **Secure**: Standard OAuth 2.0 login for Spotify and SoundCloud, encrypted token storage
 - 🎨 **Modern UI**: Drag & drop interface, responsive design
+- 🔐 **Easy Login**: Direct login with your Spotify/SoundCloud account - no manual tokens required
 
 ## Tech Stack
 
@@ -107,6 +108,20 @@ unified-playlist-manager/
 | `SPOTIFY_CLIENT_SECRET` | Spotify OAuth client secret |
 
 See `.env.example` for all available options.
+
+## How Authentication Works
+
+### User Authentication
+Users create an account with email/password or use magic link authentication to access the application.
+
+### Provider Authentication (Spotify & SoundCloud)
+- **OAuth 2.0 Flow**: The app uses the official OAuth 2.0 standard for authenticating with Spotify and SoundCloud
+- **No Manual Tokens**: Users don't need to manually create or copy/paste any API tokens
+- **Simple Login**: Click "Login & Connect" to be redirected to the official Spotify or SoundCloud login page
+- **Secure**: Your provider credentials are never shared with our app - authentication happens directly with Spotify/SoundCloud
+- **Automatic Token Management**: Access and refresh tokens are managed automatically and securely encrypted
+
+This is the standard, recommended, and most secure way to integrate with music streaming services.
 
 ## API Documentation
 
