@@ -14,11 +14,7 @@ import {
 import { User } from './user.entity';
 import { ProviderToken } from './provider-token.entity';
 import { Playlist } from './playlist.entity';
-
-export enum Provider {
-  SPOTIFY = 'spotify',
-  SOUNDCLOUD = 'soundcloud',
-}
+import { Provider } from './enums';
 
 @Entity('provider_accounts')
 @Unique(['user', 'provider'])

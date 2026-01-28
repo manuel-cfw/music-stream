@@ -11,19 +11,7 @@ import {
 import { User } from './user.entity';
 import { ProviderAccount } from './provider-account.entity';
 import { Conflict } from './conflict.entity';
-
-export enum SyncType {
-  PULL = 'pull',
-  PUSH = 'push',
-  FULL = 'full',
-}
-
-export enum SyncStatus {
-  PENDING = 'pending',
-  RUNNING = 'running',
-  COMPLETED = 'completed',
-  FAILED = 'failed',
-}
+import { SyncType, SyncStatus } from './enums';
 
 @Entity('sync_runs')
 @Index(['user'])

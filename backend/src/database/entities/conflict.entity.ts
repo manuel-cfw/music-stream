@@ -9,21 +9,7 @@ import {
 } from 'typeorm';
 import { SyncRun } from './sync-run.entity';
 import { UnifiedItem } from './unified-item.entity';
-
-export enum ConflictType {
-  TRACK_UNAVAILABLE = 'track_unavailable',
-  TRACK_MODIFIED = 'track_modified',
-  TRACK_REMOVED = 'track_removed',
-  DUPLICATE_DETECTED = 'duplicate_detected',
-  SYNC_FAILED = 'sync_failed',
-}
-
-export enum ConflictResolution {
-  KEEP = 'keep',
-  REMOVE = 'remove',
-  REPLACE = 'replace',
-  IGNORE = 'ignore',
-}
+import { ConflictType, ConflictResolution } from './enums';
 
 @Entity('conflicts')
 @Index(['syncRun'])
