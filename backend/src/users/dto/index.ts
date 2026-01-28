@@ -1,7 +1,6 @@
 import { IsString, MaxLength, IsOptional, IsEnum, IsBoolean, IsNumber, Min, Max } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { Theme } from '../../database/entities/user-settings.entity';
-import { Provider } from '../../database/entities/provider-account.entity';
+import { Theme, Provider } from '../../database/entities';
 
 export class UpdateProfileDto {
   @ApiPropertyOptional({ example: 'John Doe' })

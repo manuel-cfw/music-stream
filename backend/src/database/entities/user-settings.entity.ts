@@ -8,13 +8,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { User } from './user.entity';
-import { Provider } from './provider-account.entity';
-
-export enum Theme {
-  LIGHT = 'light',
-  DARK = 'dark',
-  SYSTEM = 'system',
-}
+import { Provider, Theme } from './enums';
 
 @Entity('user_settings')
 export class UserSettings {

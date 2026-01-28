@@ -8,7 +8,7 @@ import {
   Unique,
   OneToMany,
 } from 'typeorm';
-import { Provider } from './provider-account.entity';
+import { Provider } from './enums';
 import { PlaylistItem } from './playlist-item.entity';
 import { UnifiedItem } from './unified-item.entity';
 

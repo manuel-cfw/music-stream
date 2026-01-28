@@ -1,3 +1,4 @@
+export * from './enums';
 export * from './user.entity';
 export * from './provider-account.entity';
 export * from './provider-token.entity';
