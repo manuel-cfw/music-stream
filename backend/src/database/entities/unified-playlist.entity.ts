@@ -24,7 +24,7 @@ export class UnifiedPlaylist {
   @Column({ type: 'text', nullable: true })
   description: string | null;
 
-  @Column({ name: 'image_url', nullable: true, length: 500 })
+  @Column({ type: 'varchar', name: 'image_url', nullable: true, length: 500 })
   imageUrl: string | null;
 
   @CreateDateColumn({ name: 'created_at' })
