@@ -82,7 +82,10 @@ export default function ProvidersPage() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-white mb-2">Connected Providers</h1>
         <p className="text-neutral-400">
-          Connect your Spotify and SoundCloud accounts to access your playlists.
+          Connect your Spotify and SoundCloud accounts using secure OAuth login to access your playlists.
+        </p>
+        <p className="text-neutral-500 text-sm mt-2">
+          You'll be redirected to the official provider login page - no manual tokens needed.
         </p>
       </div>
 
@@ -155,6 +158,7 @@ export default function ProvidersPage() {
             ) : (
               <button
                 onClick={() => handleConnect(provider.id)}
+                title={`Login with your ${provider.name} account via OAuth`}
                 className={`flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-colors ${
                   provider.id === 'spotify'
                     ? 'bg-spotify-green text-white hover:bg-spotify-green/90'
@@ -162,7 +166,7 @@ export default function ProvidersPage() {
                 }`}
               >
                 <LinkIcon size={18} />
-                Connect
+                Login & Connect
               </button>
             )}
           </div>
@@ -173,7 +177,9 @@ export default function ProvidersPage() {
       <div className="mt-8 p-4 bg-neutral-800/50 rounded-lg border border-neutral-700">
         <h3 className="font-medium text-white mb-2">About Provider Connections</h3>
         <ul className="text-sm text-neutral-400 space-y-1">
-          <li>• Your credentials are securely encrypted and stored</li>
+          <li>• Click "Login & Connect" to log in with your Spotify or SoundCloud account</li>
+          <li>• You'll be redirected to the official login page (OAuth 2.0)</li>
+          <li>• Your access tokens are securely encrypted and stored</li>
           <li>• We only request permissions necessary for playlist management</li>
           <li>• You can disconnect providers at any time</li>
           <li>• Disconnecting will remove access to that provider's playlists</li>
